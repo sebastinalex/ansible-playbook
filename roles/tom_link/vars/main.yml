@@ -1,0 +1,4 @@
+---
+binary : /opt/tomcat/apache-tomcat-9.0.63/bin/
+link : /usr/bin/tomcatup
+u : tomcat

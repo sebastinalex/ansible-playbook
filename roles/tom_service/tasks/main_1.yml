@@ -1,0 +1,6 @@
+---
+  - name : start tomcat service
+    shell : nohup {{ binary }}/startup.sh
+
+
+

@@ -1,0 +1,16 @@
+---
+  - name : Create a link file
+    file :
+     path : "{{ link }}"
+     state : touch
+
+  - name : Create link
+    file : 
+     src : '"{{ binary }}"/startup.sh'
+     dest : "{{ link }}"
+     state : link
+   
+    file : 
+     path : "{{ link }}"
+     mode : 755
+     owner : "{{ u }}"

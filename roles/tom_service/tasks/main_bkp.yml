@@ -1,0 +1,6 @@
+---
+  - name : start tomcat service
+    shell : nohup /opt/tomcat/apache-tomcat-9.0.63/bin/startup.sh
+
+
+

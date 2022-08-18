@@ -1,0 +1,16 @@
+---
+  - name : Create user
+    user : 
+     name : "{{ u }}"
+     create_home : yes
+     shell : /bin/bash
+     comment : tomcat user
+     uid : 0921
+     state : present
+
+  - name : Change permission
+    file :
+     path : /opt/{{ u }}
+     mode : 755
+     owner : "{{ u }}"
+     recurse : yes

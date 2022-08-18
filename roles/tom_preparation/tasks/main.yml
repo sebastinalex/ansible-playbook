@@ -1,0 +1,6 @@
+---
+  - name : Preparation for tomcat
+    unarchive : 
+     src : /opt/{{ u }}/{{ file }}
+     dest : /opt/{{ u }}
+     remote_src : yes

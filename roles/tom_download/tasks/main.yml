@@ -1,0 +1,5 @@
+---
+  - name : download tomcat
+    get_url :
+     url : "{{ url }}"
+     dest : /opt/{{ u }}/
