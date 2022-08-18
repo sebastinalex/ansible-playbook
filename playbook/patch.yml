@@ -1,0 +1,25 @@
+---
+- name : patch playbook
+  hosts : Client2
+  become : true
+
+  tasks : 
+  - name : Stop App
+    service : 
+     name : httpd
+     state : stopped
+
+  - name : Check App is running
+    shell : if ps -eaf | egrep 'http|apache' | grep -v grep > /dev/null ; then echo "process_running"; else echo "process_not_running"; fi
+    register : process_status
+
+  - name : validate app status
+    fail : msg="{{ ansible_hostname }} have App is running. Please check App."
+    when : process_status.stdout == 'process_running' 
+    ignore_errors : yes
+
+  - name : install app when app is not running
+    yum : 
+     name : nginx
+     state : present
+    when : process_status.stdout == "process_not_running"

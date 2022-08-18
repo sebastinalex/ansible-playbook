@@ -1,0 +1,11 @@
+---
+- name : register example
+  hosts : Client1
+  become : true
+ 
+  tasks : 
+  - name : record register
+    command : df -Ph
+    register : Filesystem_usage
+  - debug : 
+     var : Filesystem_usage

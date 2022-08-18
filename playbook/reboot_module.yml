@@ -1,0 +1,26 @@
+---
+- name : Reboot & connect
+  hosts : Client2
+  become : true
+
+  tasks : 
+  - name : reboot
+    reboot : 
+     pre_reboot_delay : 5
+     msg : "System being rebooted for patching"
+     post_reboot_delay : 10
+     reboot_timeout : 20
+     test_command : uname
+    register : uname
+  - debug : 
+      var : uname
+
+  - name : install
+    yum :
+      name : httpd
+      state : present
+     
+  - name : start service
+    service :
+     name : httpd
+     state : started

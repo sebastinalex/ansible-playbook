@@ -1,0 +1,12 @@
+---
+- name : register value retrive
+  hosts : Client1
+  become : true
+  
+  tasks : 
+  - name : Pull output
+    command : hostname -s
+    register : host_output
+  - debug : 
+     var : host_output
+...

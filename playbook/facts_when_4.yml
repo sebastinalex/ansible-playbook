@@ -1,0 +1,19 @@
+---
+- name : facts
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Install
+    yum : 
+     name : wget
+     state : present
+    when : 
+     - ansible_default_ipv4.address == "10.182.0.4"
+
+  - name : remove
+    yum : 
+       name : wget
+       state : absent
+    when :
+       - ansible_bios_version == "Google"

@@ -1,0 +1,17 @@
+---
+- name : fact check
+  hosts : Client2
+  become : true
+
+  tasks : 
+  - name : check fact
+    shell : uname -n
+    register : uname_status
+  - debug : 
+     var : uname_status.stdout_lines
+
+  - name : start apache
+    service : 
+     name : httpd
+     state : started
+    when : uname_status.stdout == {{ "ansible_hostname" }}

@@ -1,0 +1,28 @@
+---
+- name : Create User using var file
+  hosts : Client1
+  become : true
+  vars_files :
+   - zhapass.yml
+  
+  tasks : 
+  - name : create directory
+    file : 
+     name : /export/home/
+     state : directory
+     mode : 775
+
+  - name : create user
+    user :
+     name : "{{ username }}"
+     uid : "{{ uid }}"
+     home : /export/home/{{ username }}
+     shell : /bin/bash
+     comment : Zha Sons
+     password : "{{ zhapass | password_hash('sha512') }}"
+
+  - name : Change dir permission
+    file :
+     dest : /export/home/{{ username }}
+     mode : 770
+...

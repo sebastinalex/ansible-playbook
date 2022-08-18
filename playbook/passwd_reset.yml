@@ -1,0 +1,21 @@
+---
+- name : password reset
+  hosts : Client1
+  become : true
+  vars_files :
+   - reset_pass.yml
+  
+  tasks : 
+  - name : reset passwd for pugazh
+    user : 
+     name : pugazh
+     update_password : always
+     password : "{{ pugazh_pass | password_hash('sha512') }}"
+    tags : reset_pugazh
+
+  - name : reset magizh
+    user : 
+     name : magizh
+     update_password : always
+     password : "{{ magizh_pass | password_hash('sha512') }}"
+    tags : reset_magizh

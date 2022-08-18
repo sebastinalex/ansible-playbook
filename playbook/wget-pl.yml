@@ -1,0 +1,17 @@
+---
+- name : Instal wget
+  become : yes
+  hosts : all
+
+  tasks : 
+  - name : Install 
+    yum : 
+     name : wget
+     state : present
+
+  - name : download web page
+    get_url :
+     url : http://34.125.205.163:8080/docs/setup.html
+     dest : /home/
+...
+

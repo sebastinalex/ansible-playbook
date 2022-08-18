@@ -1,0 +1,13 @@
+---
+- name : when conditions
+  hosts : Client1
+  become : true
+  gather_facts : true
+
+  tasks : 
+  - name : validate host
+    command : hostname -s 
+    register : when_output
+    when : ansible_distribution == "CentOS1"
+  - debug :
+     var : when_output

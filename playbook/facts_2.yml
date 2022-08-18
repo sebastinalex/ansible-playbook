@@ -1,0 +1,9 @@
+---
+- name : facts
+  hosts :  Client1
+  become : true
+
+  tasks : 
+  - name : facts
+    debug :
+     msg : Client1 ineterface is {{ ansible_default_ipv4.interface }}

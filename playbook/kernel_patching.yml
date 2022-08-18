@@ -1,0 +1,50 @@
+---
+- name : Patching 
+  hosts : Client2
+  become : true
+
+  tasks : 
+  - name : check app is running
+    shell : if ps -ef | grep http | grep -v grep >/dev/null; then echo "process_running"; else echo "process_not_running"; fi
+    register : app_status
+    ignore_errors : yes
+  
+  - name : stop app
+    service : 
+     name : httpd
+     state : stopped
+    when : app_status.stdout == "process_running"
+    ignore_errors : yes
+
+  - name : check app status again
+    shell : if ps -ef | grep http | grep -v grep >/dev/null; then echo "process_running"; else echo "process_not_running"; fi
+    register : app_status_again
+    ignore_errors : yes
+
+  - name : Run Patching if App is not running
+    yum : 
+     name : kernel
+     state : latest
+    when : app_status_again.stdout == "process_not_running"
+    ignore_errors : yes
+
+  - name : validate install kernel
+    shell : KERNEL_NEW=$(rpm -q --last kernel |head -1 | awk '{print $1}' | sed 's/kernel-//'); KERNEL_NOW=$(uname -r); if [[ $KERNEL_NEW != $KERNEL_NOW ]]; then echo "reboot_needed"; else echo "reboot_not_needed"; fi
+    register : kernel_status
+    ignore_errors : yes
+
+  - name : reboot system if kernel upgraded
+    reboot :
+     pre_reboot_delay : 10
+     msg : System will be rebooted as part of patching activity. Please logout
+     post_reboot_delay : 10
+     connect_timeout : 5
+     test_command : uname -n
+    when : kernel_status.stdout == "reboot_needed"
+    ignore_errors : yes
+
+  - name : start apache
+    service :
+     name : httpd
+     state : started
+    when : uname_status.stdout == {{ansible_hostname}}

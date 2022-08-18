@@ -1,0 +1,14 @@
+---
+- name : install git
+  become : true
+  hosts : Client1
+
+  tasks : 
+  - name : install
+    yum : 
+     name : git
+     state : present
+  - name : Check pkg
+    yum : 
+     list : git
+...

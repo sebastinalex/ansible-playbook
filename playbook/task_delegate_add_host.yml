@@ -1,0 +1,24 @@
+---
+- name : task delegate
+  become : true
+  hosts : Client1
+
+  tasks : 
+  - name : add a delegate node
+    add_host : 
+     name : anode3
+     ansible_host : 10.182.0.4
+     ansible_user : ansadmin
+   
+  - name : remove
+    yum : 
+     name : wgex
+     state : absent
+    delegate_to : anode3
+    ignore_errors : yes
+
+  - name : Install
+    yum :
+     name : mariadb
+     state : present
+

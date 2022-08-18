@@ -1,0 +1,11 @@
+---
+- name : Regsiter example
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : record output
+    command : ifconfig -a
+    register : ipaddres
+  - debug : 
+     msg : display {{ ipaddres }}

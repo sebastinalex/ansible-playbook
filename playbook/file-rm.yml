@@ -1,0 +1,11 @@
+---
+- name : delete a given file
+  hosts : Client1
+  become : yes
+
+  tasks : 
+  - name : file delete
+    file : 
+     path : /home/setup.html
+     state : absent
+...

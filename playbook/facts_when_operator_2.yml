@@ -1,0 +1,19 @@
+---
+- name : when
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Install
+    yum : 
+     name : java
+     state : absent
+    when : 
+     - (ansible_hostname == "anode1" and ansible_machine == "x86_64")
+
+  - name : Install
+    yum : 
+     name : mariadb
+     state : present
+    when : 
+     - (ansible_eth0.active == true and ansible_eth0.device == "eth0")

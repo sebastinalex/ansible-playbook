@@ -1,0 +1,20 @@
+---
+- name : notify
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : notify task
+    copy :
+     src : /home/ansadmin/playbook/index.html
+     dest : /var/www/html/index.html
+     force : yes
+
+    notify : 
+     - file changed
+  
+  handlers : 
+    - name : file changed
+      service : 
+        name : httpd
+        state : stopped

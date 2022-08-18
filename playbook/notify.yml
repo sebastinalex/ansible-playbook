@@ -1,0 +1,19 @@
+---
+- name : notify
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : copy file
+    copy : 
+     src : /home/ansadmin/playbook/index.html 
+     dest : /var/www/html/index.html
+     force : yes
+
+    notify : restart service if file changed
+
+  handlers : 
+   - name : restart service if file changed
+     service : 
+      name : httpd
+      state : restarted

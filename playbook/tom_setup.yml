@@ -1,0 +1,10 @@
+---
+  - name : tomcat setup
+    hosts : Client1
+    become : true
+
+    roles : 
+     - tom_download
+     - tom_preparation
+     - user_create
+     - tom_service

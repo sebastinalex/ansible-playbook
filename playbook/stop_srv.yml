@@ -1,0 +1,10 @@
+---
+- name : Stop Web Service
+  hosts : Client1
+  become : yes
+
+  tasks : 
+  - name : Stop Service
+    service : 
+      name : nginx
+      state : stopped

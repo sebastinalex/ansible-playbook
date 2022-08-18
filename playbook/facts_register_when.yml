@@ -1,0 +1,17 @@
+---
+- name : facts & when
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : gather
+    when : 
+     - ansible_distribution == "CentOS"
+    register : command_register
+  
+  - name : Install
+    yum : 
+     name : wget
+     state : latest
+
+    when : command_register.changed

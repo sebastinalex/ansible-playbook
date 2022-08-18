@@ -1,0 +1,17 @@
+---
+- name : task delegate
+  hosts : Client1
+  become : true
+
+  tasks :
+  - name : task
+    add_host : 
+     name : anode2
+     ansible_host : 10.182.0.4
+     ansible_user : ansadmin
+
+  - name : install
+    yum :
+     name : wget
+     state : absent
+    delegate_to : anode2
