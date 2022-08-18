@@ -1,0 +1,17 @@
+---
+- name: Ansible Variable Example Playbook
+  hosts: Client1
+  tasks:
+
+    - debug:
+        msg: "{{ansible_mounts}}"
+
+    - debug:
+        msg: "Mount Point {{item.mount}} is at {{item.block_used/item.block_total*100}} percent "
+      loop: "{{ansible_mounts}}"
+
+    - name: Execute the command only anode1 server
+      become: yes
+      become_user: root 
+      shell: "uname -a"
+      when: "{{ ansible_hostname == 'anode1'}}"

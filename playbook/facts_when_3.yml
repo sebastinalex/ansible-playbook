@@ -1,0 +1,17 @@
+---
+- name : 
+  hosts : Client1
+  become : true
+  gather_facts : true
+
+  tasks : 
+  - name : validate
+    command : hostname -s
+    when : ansible_all_ipv4_addresses == "10.182.0.4"
+    register : ipaddress
+  - name : install
+    yum : 
+     name : httpd
+     state : absent
+    when : ipaddress is changed
+...

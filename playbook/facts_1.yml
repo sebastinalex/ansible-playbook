@@ -1,0 +1,9 @@
+---
+- name : facts example
+  hosts : Client1
+  become : true
+  
+  tasks : 
+  - name : get output
+    debug : 
+     msg : "{{ ansible_default_ipv4.address }}"

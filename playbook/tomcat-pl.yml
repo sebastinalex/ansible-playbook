@@ -1,0 +1,25 @@
+---
+- name : Install & Configure tomcat
+  hosts : Client1
+  become : yes
+
+  tasks : 
+  - name : Install Java
+    yum : 
+     name : java
+     state : latest
+
+  - name : Download Package
+    get_url :
+      url : https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
+      dest : /usr/local/
+
+  - name : Untar Package
+    unarchive : 
+     src : /usr/local/apache-tomcat-9.0.63.tar.gz
+     dest : /usr/local
+     remote_src : yes
+
+  - name : Start tomcat service
+    shell : nohup /usr/local/apache-tomcat-9.0.63/bin/startup.sh
+...

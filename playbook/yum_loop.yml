@@ -1,0 +1,10 @@
+---
+- name : with_items
+  hosts : Client2
+  become : true
+
+  tasks :
+  - name : loop
+    yum :
+     name : [ "wget", "httpd", "nginx", "curl"]
+     state : latest

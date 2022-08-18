@@ -1,0 +1,13 @@
+---
+- name : facts
+  hosts : Client1
+  become : true
+ 
+  tasks : 
+  - name : facts
+    yum : 
+     name : wget
+     state : absent
+    when :  
+     - ansible_default_ipv4.address == "10.182.0.4"
+...

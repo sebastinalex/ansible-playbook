@@ -1,0 +1,24 @@
+---
+- name : notify & variable
+  hosts : Client1
+  become : true
+  vars : 
+   file : index.html
+ 
+  tasks : 
+  - name : copy file
+    copy : 
+     src : /home/ansadmin/playbook/{{ file }}
+     dest : /var/www/html/{{ file }}
+     force : yes
+
+    notify : 
+     - file is changed
+  handlers : 
+   - name : file is changed
+     service : 
+       name : httpd
+       state : started
+
+  
+

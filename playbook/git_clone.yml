@@ -1,0 +1,15 @@
+---
+- name : CLone Git
+  become : true
+  hosts : Client1
+
+  tasks : 
+  - name : create a directory
+    file : 
+     name : /home/ansadmin/git
+     state : directory
+
+  - name : CLone git
+    git : 
+     repo : git@github.com:sebastinalex/ansible-check.git
+     dest : /home/ansadmin/git

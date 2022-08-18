@@ -1,0 +1,17 @@
+---
+- name : handle
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : handle check
+    yum :
+     name : http
+     state : present
+    ignore_errors : yes
+
+  - name : install
+    yum : 
+     name : httpd
+     state : latest
+    

@@ -1,0 +1,16 @@
+---
+- name : First PlayBook
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Instal ngnix
+    yum :
+     name : nginx
+     state : installed
+
+  - name : Start service
+    service :
+      name : nginx
+      state : started
+...

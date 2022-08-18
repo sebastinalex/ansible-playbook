@@ -1,0 +1,14 @@
+---
+- name : edit file
+  become : true
+  hosts : Client1
+
+  tasks : 
+  - name : check file
+    lineinfile : 
+     path : /home/ansadmin/ssh-config-bkp
+     line : "SendEnv headers"
+     state : present
+     backup : yes
+    register : file_edit
+...

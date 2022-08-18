@@ -1,0 +1,24 @@
+---
+- name : task dele & ignore
+  hosts : Client1
+  become : true
+
+  tasks :
+  - name : add a node
+    add_host :
+     name : pugazh
+     ansible_host : 10.182.0.5
+     ansible_user : ansadmin
+
+  - name : instal on delegate hosts
+    yum :
+     name : wgt
+     state : present
+    delegate_to : pugazh
+    ignore_unreachable : yes
+
+  - name : Install on default hosts
+    yum : 
+     name : wget
+     state : present
+...

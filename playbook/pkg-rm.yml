@@ -1,0 +1,11 @@
+---
+- name : remove file
+  hosts : all
+  become : yes
+  
+  tasks : 
+  - name : remove file
+    file :
+     path : /home/ansadmin/setup.html
+     state : absent
+...

@@ -1,0 +1,12 @@
+---
+- name : register
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : register
+    command : uname 
+    register : output
+
+  - debug : 
+     var : output

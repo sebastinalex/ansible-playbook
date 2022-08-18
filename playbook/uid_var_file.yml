@@ -1,0 +1,16 @@
+---
+- name : Create user
+  become : true
+  hosts : Client1
+  vars :
+    user_name : magizh 
+  vars_files :
+    - passwd.yml 
+  tasks : 
+  - name : Create ID
+    user :
+     name : "{{ user_name }}"
+     uid : 2112
+     comment : Ethen Magizh
+     shell : /bin/bash
+     password : "{{ user_passwd | password_hash('sha512') }}"

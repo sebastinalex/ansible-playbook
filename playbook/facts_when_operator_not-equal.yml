@@ -1,0 +1,15 @@
+
+---
+- name : when
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Install
+    yum : 
+     name : nginx
+     state : present
+    when : 
+     - (ansible_default_ipv4.gateway == "10.182.0.1" and ansible_is_chroot != "false")
+       or
+       (ansible_selinux.config_mode == "enforcing" and ansible_system_vendor == "Google")

@@ -1,0 +1,11 @@
+---
+- name : fetch file
+  hosts : Client1
+  become : true 
+
+  tasks : 
+  - name : Pull the file
+    get_url : 
+     url : http://34.125.43.112:8080/docs/setup.html
+     dest : /home/ansadmin
+...

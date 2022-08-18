@@ -1,0 +1,19 @@
+---
+- name : when wit op
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Install
+    yum : 
+     name : mysql
+     state : present
+    when : 
+     - (ansible_architecture == "x86_64" and ansible_bios_version != "Google")
+
+  - name : Install http
+    yum : 
+     name : httpd
+     state : present
+    when : 
+     - (ansible_distribution == "CentOS" and ansible_distribution_version >6)

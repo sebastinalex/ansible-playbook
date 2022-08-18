@@ -1,0 +1,11 @@
+---
+- name : Install Curl
+  hosts : Client1
+  become : yes
+
+  tasks : 
+  - name : Install
+    yum :
+     name : curl
+     state : absent 
+...

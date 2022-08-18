@@ -1,0 +1,27 @@
+---
+- name : test reboot
+  hosts : Client2
+  become : true
+
+  tasks : 
+  - name : reboot Client2
+    shell : sleep 5 && reboot
+    async : 1
+    poll : 0
+
+  - name : wait for 10 seconds
+    pause : 
+     seconds : 10
+  - name: check if system responding to ssh
+    wait_for : 
+     host : anode2
+     port : 22
+     delay : 15
+     timeout : 160
+     state : started
+
+  - name : excute after reboot
+    command : uptime
+    register : output
+  - debug : 
+     var : output

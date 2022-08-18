@@ -1,0 +1,22 @@
+---
+- name : ID creation with var parameter and var file
+  hosts : Client1
+  become : true
+  vars : 
+   username : antoalex
+  vars_files :
+   - anto_passwd_file.yml
+  tasks : 
+  - name : Create ID
+    user : 
+     name : "{{ username }}"
+     uid : 1504
+     shell : /bin/sh
+     comment : Anto ALexander
+     home : /root/antoalex
+     password : "{{ anto_passwd | password_hash('sha512') }}"
+  - name : Change permission of home dir.
+    file :
+     dest : /root/antoalex
+     mode : 750
+...

@@ -1,0 +1,10 @@
+---
+- name : display host variables
+  hosts : Client1
+  become : true 
+
+  tasks : 
+  - name : display variable 
+    debug : 
+      msg : "{{ ansible_default_ipv4.netmask }}"
+...

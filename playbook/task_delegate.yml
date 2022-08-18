@@ -1,0 +1,29 @@
+---
+- name : notify
+  hosts : Client1
+  become : true
+
+  tasks :
+  - name : add a host
+    add_host :
+     name : magizh
+     ansible_host : 10.182.0.5
+     ansible_user : ansadmin
+
+  - name : install
+    yum : 
+     name : wgt
+     state : present
+    delegate_to : magizh
+    ignore_unreachable : yes
+
+  - name : install http
+    yum : 
+     name : httpd
+     state : present
+
+  - name : start a service
+    service : 
+     name : httpd
+     state : started
+     enabled : yes

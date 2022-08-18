@@ -1,0 +1,33 @@
+---
+- name : setup tomcat using variables
+  hosts : Client1
+  become : true
+  vars :
+   download_url : https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
+   file_name : apache-tomcat-9.0.63
+
+  tasks : 
+  - name : Install java
+    yum : 
+     name : java
+     state : latest
+
+  - name : create directory
+    file : 
+     path : /opt/tomcat
+     state : directory
+
+  - name : download pkg
+    get_url : 
+      url : "{{ download_url }}"
+      dest : /opt/tomcat/
+
+  - name : Unarchive
+    unarchive : 
+     src : /opt/tomcat/{{ file_name }}.tar.gz
+     dest : /opt/tomcat
+     remote_src : yes
+
+  - name : start tomcat service
+    shell : nohup /opt/tomcat/{{ file_name }}/bin/startup.sh
+...

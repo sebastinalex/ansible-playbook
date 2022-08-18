@@ -1,0 +1,13 @@
+---
+- name : register another example
+  hosts : Client1
+  become : true
+  
+  tasks:
+  - name : run command
+    command : uname -a
+    register : uname
+  - debug :
+     var :  uname 
+... 
+

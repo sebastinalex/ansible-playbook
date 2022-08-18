@@ -1,0 +1,16 @@
+---
+- name : err_handle
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : handling
+    yum : 
+     name : njinx
+     state : present
+    ignore_errors : yes
+
+  - name : remove
+    yum : 
+     name : httpd
+     state : absent

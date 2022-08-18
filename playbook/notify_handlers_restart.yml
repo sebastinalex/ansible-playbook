@@ -1,0 +1,17 @@
+---
+- name : notify
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : copy the file
+    copy : 
+     src : /home/ansadmin/playbook/index.html
+     dest : /var/www/html/index.html
+    notify : restart apache
+    
+  handlers : 
+  - name : restart apache
+    service :
+        name : httpd
+        state : restarted

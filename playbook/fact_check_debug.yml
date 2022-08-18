@@ -1,0 +1,11 @@
+---
+- name : check facts
+  hosts : Client2
+  become : true
+  
+  tasks : 
+  - name : check fact
+    shell : uname -n
+    register : uname_status
+  - debug :
+     msg : Server name is {{ uname_status.stdout }}

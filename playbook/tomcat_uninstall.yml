@@ -1,0 +1,14 @@
+---
+- name : Uninstall tomcat
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : Stop Service
+    shell : /opt/tomcat/apache-tomcat-9.0.63/bin/shutdown.sh
+
+  - name : remove tomcat package
+    file :
+     dest : /opt/tomcat/apache-tomcat-9.0.63
+     state : absent
+...

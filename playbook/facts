@@ -1,0 +1,23 @@
+---
+- name : facts & when
+  hosts : Client1
+  become : true
+
+  tasks : 
+  - name : validate
+    command : hostname -s
+    when : ansible_distribution == "OS"
+    register : osvalue
+
+  - name : install
+    yum : 
+     name : wget
+     state : latest
+
+    when : osvalue is changed
+
+  - name : remove
+    yum :
+     name : wget
+     state : absent
+    when : osvalue is skipped
